@@ -1,0 +1,12 @@
+{
+  "name": "pnpm-1121-lockfile-peers-git-probe",
+  "version": "0.0.0",
+  "private": true,
+  "description": "pnpm 11.21 probe: lockfile pruning, catalog entries, peer fast-path, git URL normalization",
+  "scripts": {
+    "build": "echo 'no build'"
+  },
+  "devDependencies": {
+    "zod": "catalog:"
+  }
+}
