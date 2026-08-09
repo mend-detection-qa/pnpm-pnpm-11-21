@@ -1,0 +1,105 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+catalogs:
+  default:
+    react:
+      specifier: ^18.3.0
+      version: 18.3.1
+    react-dom:
+      specifier: ^18.3.0
+      version: 18.3.1
+    zod:
+      specifier: ^3.22.0
+      version: 3.22.4
+
+importers:
+
+  .:
+    devDependencies:
+      zod:
+        specifier: 'catalog:'
+        version: 3.22.4
+
+  packages/app-web:
+    dependencies:
+      '@probe/ui-button':
+        specifier: 'workspace:*'
+        version: link:../ui-button
+      is-positive:
+        specifier: 'github:sindresorhus/is-positive#3.1.0'
+        version: 3.1.0(github:sindresorhus/is-positive)
+      react:
+        specifier: 'catalog:'
+        version: 18.3.1
+      react-dom:
+        specifier: 'catalog:'
+        version: 18.3.1
+
+  packages/ui-button:
+    devDependencies:
+      react:
+        specifier: 'catalog:'
+        version: 18.3.1
+
+packages:
+
+  is-positive@3.1.0:
+    resolution:
+      tarball: https://codeload.github.com/sindresorhus/is-positive/tar.gz/c87a5e76c37deca5a5b4b8a79c70d67c11b07ac5
+      commit: c87a5e76c37deca5a5b4b8a79c70d67c11b07ac5
+    engines: {node: '>=6'}
+
+  js-tokens@4.0.0:
+    resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+
+  loose-envify@1.4.0:
+    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f8ZWR+wlkq7yQW4O1w==}
+    hasBin: true
+
+  react-dom@18.3.1:
+    resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI86/9+cr+k2Yw==}
+    peerDependencies:
+      react: ^18.3.1
+
+  react@18.3.1:
+    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLASudWSvmJ64BhAJ/ovAr8cENyqIZzoTU8G/gDPpXnG1BUmcg==}
+    engines: {node: '>=0.10.0'}
+
+  scheduler@0.23.2:
+    resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIhhWiWzvhj5ci4iI7mZvQMrmJoDJ79IBxHQbyTcNpwv/ZA==}
+
+  zod@3.22.4:
+    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ55MqLm8DB8xH1x1IquZLAv9+v7TGe6VQANyBPOoQdwBMphfHFkBxKXVh7iHBqNM1tFsw==}
+
+snapshots:
+
+  is-positive@3.1.0(github:sindresorhus/is-positive):
+    resolution:
+      tarball: https://codeload.github.com/sindresorhus/is-positive/tar.gz/c87a5e76c37deca5a5b4b8a79c70d67c11b07ac5
+      commit: c87a5e76c37deca5a5b4b8a79c70d67c11b07ac5
+
+  js-tokens@4.0.0: {}
+
+  loose-envify@1.4.0:
+    dependencies:
+      js-tokens: 4.0.0
+
+  react-dom@18.3.1:
+    dependencies:
+      loose-envify: 1.4.0
+      react: 18.3.1
+      scheduler: 0.23.2
+
+  react@18.3.1:
+    dependencies:
+      loose-envify: 1.4.0
+
+  scheduler@0.23.2:
+    dependencies:
+      loose-envify: 1.4.0
+
+  zod@3.22.4: {}
