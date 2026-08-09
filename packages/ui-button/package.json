@@ -1,0 +1,12 @@
+{
+  "name": "@probe/ui-button",
+  "version": "1.0.0",
+  "description": "React button component — exercises peer dep fast-path",
+  "main": "index.js",
+  "peerDependencies": {
+    "react": "^18.3.0"
+  },
+  "devDependencies": {
+    "react": "catalog:"
+  }
+}
