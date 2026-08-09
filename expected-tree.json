@@ -1,0 +1,147 @@
+{
+  "generated_at": "2026-08-09T14:32:05Z",
+  "packages": {
+    "@probe/app-web": {
+      "dependencies": [
+        "@probe/ui-button",
+        "is-positive",
+        "react",
+        "react-dom"
+      ],
+      "group": "main",
+      "optional": false,
+      "source": "local",
+      "source_detail": {
+        "workspace": "packages/app-web"
+      },
+      "version": "1.0.0"
+    },
+    "@probe/ui-button": {
+      "dependencies": [],
+      "group": "main",
+      "optional": false,
+      "source": "local",
+      "source_detail": {
+        "workspace": "packages/ui-button"
+      },
+      "version": "1.0.0"
+    },
+    "is-positive": {
+      "dependencies": [],
+      "group": "main",
+      "optional": false,
+      "source": "git",
+      "source_detail": {
+        "commit": "c87a5e76c37deca5a5b4b8a79c70d67c11b07ac5",
+        "git_input_form": "github:sindresorhus/is-positive#3.1.0",
+        "pnpm_normalized_url": "https://codeload.github.com/sindresorhus/is-positive/tar.gz/c87a5e76c37deca5a5b4b8a79c70d67c11b07ac5",
+        "url": "https://github.com/sindresorhus/is-positive"
+      },
+      "version": "3.1.0"
+    },
+    "js-tokens": {
+      "dependencies": [],
+      "group": "main",
+      "optional": false,
+      "source": "registry",
+      "version": "4.0.0"
+    },
+    "loose-envify": {
+      "dependencies": [
+        "js-tokens"
+      ],
+      "group": "main",
+      "optional": false,
+      "source": "registry",
+      "version": "1.4.0"
+    },
+    "react": {
+      "dependencies": [
+        "loose-envify"
+      ],
+      "group": "main",
+      "optional": false,
+      "source": "registry",
+      "source_detail": {
+        "catalog": "default",
+        "catalog_specifier": "^18.3.0",
+        "peer_fast_path": true,
+        "peer_fast_path_note": "pnpm 11.21 fast-path: react@18.3.1 satisfies @probe/ui-button peer req without virtual snapshot fork"
+      },
+      "version": "18.3.1"
+    },
+    "react-dom": {
+      "dependencies": [
+        "loose-envify",
+        "react",
+        "scheduler"
+      ],
+      "group": "main",
+      "optional": false,
+      "source": "registry",
+      "source_detail": {
+        "catalog": "default",
+        "catalog_specifier": "^18.3.0"
+      },
+      "version": "18.3.1"
+    },
+    "scheduler": {
+      "dependencies": [
+        "loose-envify"
+      ],
+      "group": "main",
+      "optional": false,
+      "source": "registry",
+      "version": "0.23.2"
+    },
+    "zod": {
+      "dependencies": [],
+      "group": "dev",
+      "optional": false,
+      "source": "registry",
+      "source_detail": {
+        "catalog": "default",
+        "catalog_specifier": "^3.22.0"
+      },
+      "version": "3.22.4"
+    }
+  },
+  "pm": "pnpm",
+  "pm_version_tested": "9",
+  "pm_version_under_test": "11.21.0",
+  "project_metadata": {
+    "groups": [
+      "main",
+      "dev"
+    ],
+    "catalogs": {
+      "default": {
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "zod": "3.22.4"
+      }
+    },
+    "lockfile_version": "9.0",
+    "peer_fast_path_active": true,
+    "workspace_packages": [
+      "packages/app-web",
+      "packages/ui-button"
+    ]
+  },
+  "root": {
+    "dependencies": [
+      "@probe/app-web",
+      "@probe/ui-button",
+      "zod"
+    ],
+    "name": "pnpm-1121-lockfile-peers-git-probe",
+    "version": "0.0.0"
+  },
+  "schema_version": "1.2",
+  "source_file": "pnpm-lock.yaml",
+  "warnings": [
+    "The pnpm UA resolver (PnpmParserV9Impl) does not document catalog: specifier support as of resolver SHA 35e40487698f402b1015f97902d7decebe1cc97d. Catalog specifier resolution in this tree is exploratory — treat catalog-related detection failures as unconfirmed bugs.",
+    "pnpm 11.21 peer fast-path: react@18.3.1 appears as a plain snapshot key (no virtual fork suffix). Older parsers expecting 'react@18.3.1(@probe/ui-button@1.0.0)' will fail to match.",
+    "is-positive resolution: lockfile records tarball+commit (codeload.github.com) from 'github:' shorthand. Mend must classify this as source=git based on the 'commit' field, not as source=url or source=registry."
+  ]
+}
