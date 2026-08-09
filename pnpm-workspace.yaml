@@ -1,0 +1,7 @@
+packages:
+  - 'packages/*'
+
+catalog:
+  react: ^18.3.0
+  react-dom: ^18.3.0
+  zod: ^3.22.0
