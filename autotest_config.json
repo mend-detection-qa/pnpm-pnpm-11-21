@@ -1,0 +1,141 @@
+{
+  "description": "Autotest configuration file for dependency tree detection validation",
+  "version": 1.8,
+  "base_config": {
+    "validate_scan_output": true,
+    "_comment_validate_scan_output": "Whether to validate the scan output/exit code. Options: true | false. Default: true",
+    "scan_output": {
+      "_security_scan_report_conclusion": "success",
+      "_comment_security_scan_report_conclusion": "Optional. Expected scan report conclusion. Options: 'success' | 'failure'. This validates the security scan result status. If not provided, this check will not be performed.",
+      "total_libs_scanned": {
+        "gte": 5
+      },
+      "_comment_total_libs_scanned": "Optional. Expected number of libraries scanned with comparison operator. Validates that the scan processed libraries. If not provided, this check will not be performed.",
+      "expected_messages": [],
+      "_comment_expected_messages": "Optional. List of messages to validate in security check output/summary with severity levels. Each entry should have 'operator' (eq, regex, or contains), 'value' (string or regex pattern), and 'level' (info, error, or warning). If not provided, this check will not be performed.",
+      "_comment_expected_messages_info": "Level 'info': Standard message validation. Example: {'operator': 'contains', 'value': 'Security Check found', 'level': 'info'} or {'operator': 'regex', 'value': 'Total libraries.*scanned', 'level': 'info'}",
+      "_comment_expected_messages_error": "Level 'error': For negative test cases. Scanner logs are automatically attached to Report Portal. Example: {'operator': 'contains', 'value': 'Oops! An error occurred', 'level': 'error'}",
+      "_comment_expected_messages_warning": "Level 'warning': Validates warning messages with optional scan_details_report. .whitesource strictMode is automatically set to 'warning'. scan_details_report fields (filePath, description, details) support both regex patterns and substring matching. All scan_details_report fields are optional. Example without scan details: {'operator': 'regex', 'value': 'Scan Warnings: The scan completed with warnings.*', 'level': 'warning'}. Example with scan details: {'operator': 'regex', 'value': 'Scan Warnings: The scan completed with warnings.*', 'level': 'warning', 'scan_details_report': {'filePath': '.*/service-b/pyproject.toml', 'description': 'One or more of the installations failed', 'details': 'mend dependency.*does not support.*UV versions.*0.4.30'}}"
+    },
+    "validate_dependency_tree": true,
+    "_comment_validate_dependency_tree": "Whether to validate the dependency tree. Options: true | false. Default: true",
+    "dependency_tree": {
+      "check_dependency_tree_detection_status": true,
+      "_comment_check_dependency_tree_detection_status": "Whether to check if dependency tree was successfully detected. Options: true | false. Default: true",
+      "check_update_request_sca_results": true,
+      "_comment_check_update_request_sca_results": "Whether to validate extraProperties.scaResults from the update request. Parses scaResults as JSON and asserts: (1) totalFail is empty {}, (2) no results entry has level 'ERROR'. Options: true | false. Default: false",
+      "expected_total_dependencies_number": {
+        "gte": 4
+      },
+      "expected_direct_dependencies_number": {
+        "eq": 4
+      },
+      "expected_transitive_dependencies_number": {
+        "gte": 0
+      },
+      "_comment_expected_dependencies_number": "Optional. Expected number of dependencies with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). If not provided, this check will not be performed.",
+      "direct_dependencies_names_list": {
+        "eq": [
+          "is-positive",
+          "react",
+          "react-dom",
+          "zod"
+        ]
+      },
+      "transitive_dependencies_names_list": {
+        "contains": [
+          "js-tokens",
+          "loose-envify",
+          "scheduler"
+        ]
+      },
+      "_comment_dependencies_names_list": "Optional. Check specific libraries in direct dependencies. Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed.",
+      "expected_package_managers": {
+        "contains": [
+          "pnpm"
+        ]
+      },
+      "_comment_expected_package_managers": "Optional. Validate scanSummaryInfo.packageManagers list (values normalised to lowercase). Operators: eq (exact match), contains (actual has all expected), in (actual is subset of expected), nin (actual has none of expected). Example: {'contains': ['npm', 'maven']}. If not provided, this check will not be performed.",
+      "validate_agent_versions": false,
+      "expected_agent_version": "",
+      "expected_plugin_version": "",
+      "_comment_agent_versions": "Optional. Expected agent and plugin versions. If not provided, this check will not be performed.",
+      "validate_mend_tags": false,
+      "_comment_validate_mend_tags": "Whether to validate project tags from Mend Platform BFF API against update request extraProperties. Options: true | false. Default: false. When true, calls the BFF projects/summaries endpoint and cross-validates sourceUrl, repoId, CTX, commitId, repoFullName tags against extraProperties (owner, commitId, branchName, repository)."
+    },
+    "validate_vulnerabilities_table": false,
+    "_comment_validate_vulnerabilities_table": "Whether to validate the vulnerabilities table. Options: true | false. Default: true",
+    "vulnerabilities_table": {
+      "check_vulnerabilities_table_structure": true,
+      "expected_total_vulnerabilities_number": {
+        "gte": 0
+      },
+      "vulnerabilities_ids_list": {
+        "contains": []
+      },
+      "_comment_ids_names_list": "Optional. Check specific libs ids (WS-2018-0111, CVE-2021-44906). Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed.",
+      "vulnerabilities_names_list": {
+        "contains": []
+      },
+      "_comment_vulnerabilities_names_list": "Optional. Check specific libs names (minimist-0.0.8.tgz). Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed."
+    },
+    "validate_scanner_logs": false,
+    "_comment_validate_scanner_logs": "Whether to validate scanner logs. Options: true | false. Default: false",
+    "logs": {
+      "check_scanner_logs": true,
+      "_comment_check_scanner_logs": "Whether to check scanner logs and attach them to Report Portal. Options: true | false. Default: true",
+      "detect_secrets": false,
+      "_comment_detect_secrets": "Whether to scan scanner logs for leaked secrets (API tokens, passwords, private keys, etc.). Options: true | false. Default: false. When true, runs TWO checks: (1) Yelp's detect-secrets (Apache 2.0, pure Python \u2014 high-entropy and keyword plugins disabled to avoid false positives on scan context-ids, temp paths, and fork-repo names; AWS/JWT/GitHub/Slack/private-key detectors remain active). (2) Claude agentic check via the Anthropic API \u2014 requires ANTHROPIC_API_KEY; if the key is missing, the SDK is not installed, or the API call fails, this sub-check is skipped with a warning (never fails the test). All found secret values are redacted (first 4 + last 4 chars) before logging; raw values never appear in output. Runs independently of validate_scanner_logs. Skipped on GHE environments.",
+      "expected_log_lines": [],
+      "_comment_expected_log_lines": "Optional. List of log lines to validate. Each entry should have an 'operator' ('eq' substring match, 'regex' pattern match, or 'ne' substring NOT-contains) and 'value' (string or regex pattern). 'ne' is a negative assertion: validation passes when the substring is absent from every log line. Example: [{'operator': 'eq', 'value': 'Python version: 3.11'}, {'operator': 'regex', 'value': 'Python version: \\d+\\.\\d+'}, {'operator': 'ne', 'value': 'Operation succeeded engine=AI'}]. If not provided, only log attachment will be performed."
+    },
+    "validate_reachability": false,
+    "_comment_validate_reachability": "Whether to validate reachability analysis. Options: true | false. Default: false. When enabled, .whitesource file will be automatically updated to set enableReachability: true if needed.",
+    "reachability": {
+      "check_reachability_status": true,
+      "_comment_check_reachability_status": "Whether to check if reachability analysis was successfully performed. Options: true | false. Default: true",
+      "validate_issues": false,
+      "_comment_validate_issues": "Whether to validate GitHub issues created for reachable vulnerabilities. Options: true | false. Default: false. When enabled, issues will be automatically enabled on the repository if not already enabled. Validates: issue labels, body format (library name, CVE, paths, commit SHA), title format, state, and author. NOTE: If no issues are found in the reachability table, the test will show a WARNING (not fail) in the summary table, as this may be expected behavior.",
+      "expected_reachable_cves": {
+        "contains": []
+      },
+      "_comment_expected_reachable_cves": "Optional. List of CVE IDs expected to be marked as reachable. Operators: eq (==) - exact match of the list, contains (all items from expected list in actual), in (all items from actual in expected), nin (actual does not contain expected). Example: {'contains': ['CVE-2021-44906', 'CVE-2022-12345']}. If not provided, this check will not be performed.",
+      "expected_unreachable_cves": {
+        "contains": []
+      },
+      "_comment_expected_unreachable_cves": "Optional. List of CVE IDs expected to be marked as unreachable. Operators: eq (==) - exact match of the list, contains (all items from expected list in actual), in (all items from actual in expected), nin (actual does not contain expected). Example: {'contains': ['CVE-2020-11111']}. If not provided, this check will not be performed.",
+      "expected_reachable_libraries": {
+        "contains": []
+      },
+      "_comment_expected_reachable_libraries": "Optional. List of libraries with their reachable vulnerabilities. Each entry should have 'library_name' and 'vulnerabilities' (list of CVE IDs). Operators: eq (==) - exact match, contains (all expected libraries found in actual). Example: {'contains': [{'library_name': 'loader-utils-1.4.0.tgz', 'vulnerabilities': ['CVE-2022-37601']}]}. If not provided, this check will not be performed.",
+      "expected_unreachable_libraries": {
+        "contains": []
+      },
+      "_comment_expected_unreachable_libraries": "Optional. List of libraries with their unreachable vulnerabilities. Each entry should have 'library_name' and 'vulnerabilities' (list of CVE IDs). Operators: eq (==) - exact match, contains (all expected libraries found in actual). Example: {'contains': [{'library_name': 'loader-utils-2.0.0.tgz', 'vulnerabilities': ['CVE-2022-37603']}]}. If not provided, this check will not be performed.",
+      "expected_total_reachable_count": {
+        "gte": 0
+      },
+      "_comment_expected_total_reachable_count": "Optional. Expected number of reachable CVEs with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). Example: {'gte': 1} or {'eq': 5}. If not provided, this check will not be performed.",
+      "expected_total_unreachable_count": {
+        "gte": 0
+      },
+      "_comment_expected_total_unreachable_count": "Optional. Expected number of unreachable CVEs with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). Example: {'gte': 0}. If not provided, this check will not be performed.",
+      "expected_reachability_traces": [],
+      "_comment_expected_reachability_traces": "Optional. List of reachability traces to validate. Each entry should have 'cve_id' (CVE to check), 'operator' (contains or regex), and 'expected_trace_pattern' (pattern to match in trace). Example: [{'cve_id': 'CVE-2021-44906', 'operator': 'contains', 'expected_trace_pattern': 'minimist'}, {'cve_id': 'CVE-2022-12345', 'operator': 'regex', 'expected_trace_pattern': 'module.*function.*line'}]. If not provided, trace validation will not be performed."
+    },
+    "validate_project_contributors": false,
+    "_comment_validate_project_contributors": "Whether to validate project contributors information. Options: true | false. Default: true. When enabled, validates contributions object from dependency tree scan results.",
+    "contributors": {
+      "check_contributors_structure": true,
+      "_comment_check_contributors_structure": "Whether to validate basic contributors structure. Always performs basic checks: contributions not empty, repository link is valid (not empty), contributingDevelopers array not empty, each developer has email and commits >= 1. Options: true | false. Default: true",
+      "expected_contributors": [],
+      "_comment_expected_contributors": "Optional. Expected contributors email validation rules. Each email must match at least one rule. Supports 'eq' for exact match and 'regex' for pattern matching. Single rule: {'regex': '.*@mend.io'}. Multiple rules: [{'regex': '.*@mend.io'}, {'regex': '.*@whitesource.com'}, {'eq': 'external@example.com'}]. Empty [] or {} means no email validation. Each contributor email must match at least ONE of the provided rules.",
+      "expected_min_commits": {
+        "gte": 1
+      },
+      "_comment_expected_min_commits": "Optional. Expected minimum number of commits per contributor with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). Default: {'gte': 1}. If not provided, only checks commits >= 1.",
+      "expected_total_contributors": {},
+      "_comment_expected_total_contributors": "Optional. Expected total number of contributors with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). Example: {'gte': 1} or {'eq': 5}. If not provided, this check will not be performed."
+    }
+  }
+}
