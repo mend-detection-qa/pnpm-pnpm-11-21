@@ -1,0 +1,12 @@
+{
+  "name": "@probe/app-web",
+  "version": "1.0.0",
+  "description": "App consuming ui-button — exercises peer resolution fast-path and git dep",
+  "main": "index.js",
+  "dependencies": {
+    "@probe/ui-button": "workspace:*",
+    "is-positive": "github:sindresorhus/is-positive#3.1.0",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  }
+}
