@@ -28,7 +28,7 @@
         "gte": 7
       },
       "expected_direct_dependencies_number": {
-        "gte": 4
+        "gte": 2
       },
       "expected_transitive_dependencies_number": {
         "gte": 3
@@ -36,10 +36,8 @@
       "_comment_expected_dependencies_number": "Optional. Expected number of dependencies with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). If not provided, this check will not be performed.",
       "direct_dependencies_names_list": {
         "contains": [
-          "is-positive",
-          "react",
-          "react-dom",
-          "zod"
+          "@probe/app-web",
+          "@probe/ui-button"
         ]
       },
       "transitive_dependencies_names_list": {
